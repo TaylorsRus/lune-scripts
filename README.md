@@ -1,2 +1,2 @@
 # lune-scripts
-Collection of mostly workflow related development scripts written in luau
+> **A curated collection of Luau scripts designed to support and optimize development workflows, tooling, and automation within Roblox projects.**
