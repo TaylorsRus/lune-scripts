@@ -1,7 +1,0 @@
-*
-!.gitignore
-!.luaurc
-!README.md
-!lune/
-!lune/**
-!LICENSE.md
