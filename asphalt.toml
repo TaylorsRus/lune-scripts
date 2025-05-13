@@ -7,7 +7,7 @@ type = "user"
 id = 2070986515
 
 [codegen]
-output_name = "_asphalt.luau"
+output_name = "_asphalt"
 typescript = false
 style = "flat"
 strip_extension = true
