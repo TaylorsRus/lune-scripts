@@ -1,0 +1,24 @@
+{
+  "name": "Elevator Game",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "Assets": {
+        "$path": "src/Assets"
+      },
+      "Client": {
+        "$path": "src/Client"
+      },
+      "Server": {
+        "$path": "src/Server"
+      },
+      "$path": "src/Shared"
+    },
+    "TextChatService": {
+      "$properties": {
+        "ChatVersion": "TextChatService"
+      }
+    }
+  },
+  "emitLegacyScripts": false
+}
