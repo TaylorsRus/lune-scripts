@@ -3,6 +3,11 @@
 registry = "test"
 
 [[package]]
+name = "centau/vide"
+version = "0.3.1"
+dependencies = []
+
+[[package]]
 name = "taylorsrus/lune-scripts"
 version = "0.1.0"
-dependencies = []
+dependencies = [["Vide", "centau/vide@0.3.1"]]
