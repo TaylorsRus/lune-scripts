@@ -1,0 +1,16 @@
+#Too volatile
+sourcemap.json
+
+#Local config
+settings.json
+.env
+
+#Artifacts
+src/Assets/_asphalt.luau
+.asphalt-debug
+build.project.json
+/dist
+/Packages
+/ServerPackages
+*.lock
+*.rbxl
