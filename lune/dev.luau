@@ -8,7 +8,7 @@ local EXEC_OPTIONS = constants.EXEC_OPTIONS
 local RBXL = "dev.rbxl"
 
 local function sync_asphalt()
-	execute({ "asphalt", "sync", "--target", "studio", "--quiet" }, EXEC_OPTIONS)
+	execute({ "asphalt", "sync", "--target", "studio" }, EXEC_OPTIONS)
 end
 
 local function invoke_rbxl()
