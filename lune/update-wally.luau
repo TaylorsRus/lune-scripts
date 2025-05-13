@@ -1,6 +1,6 @@
-local constants = require("../constants")
-local execute = require("../modules/execute")
-local generate_sourcemap = require("./generate-sourcemap")
+local constants = require("./constants")
+local execute = require("./modules/execute")
+local generate_sourcemap = require("./modules/generate-sourcemap")
 
 local EXEC_OPTIONS = constants.EXEC_OPTIONS
 
