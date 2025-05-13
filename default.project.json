@@ -3,6 +3,7 @@
   "tree": {
     "$className": "DataModel",
     "ReplicatedStorage": {
+      "Packages": { "$path": "Packages" },
       "Assets": {
         "$path": "src/Assets"
       },
