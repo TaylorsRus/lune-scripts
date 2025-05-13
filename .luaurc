@@ -1,0 +1,11 @@
+{
+  "languageMode": "strict",
+  "lint": {
+    "*": true,
+    "LocalShadow": false
+  },
+  "aliases": {
+    "Packages": "Packages",
+    "Assets": "src/Assets"
+  }
+}
