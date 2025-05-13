@@ -24,9 +24,7 @@ local function get_modified_at()
 end
 
 local function copy_rbxm_files_to_dist()
-	if not isDir(DIST) then
-		writeDir(DIST)
-	end
+	if not isDir(DIST) then writeDir(DIST) end
 
 	local function find_and_copy_rbxm(directory: string)
 		for _, item in readDir(directory) do
@@ -37,9 +35,7 @@ local function copy_rbxm_files_to_dist()
 				local distPath = DIST .. "/" .. relativePath
 
 				local destinationDirectory = distPath:match("(.*/)") or ""
-				if destinationDirectory ~= "" and not isDir(destinationDirectory) then
-					writeDir(destinationDirectory)
-				end
+				if destinationDirectory ~= "" and not isDir(destinationDirectory) then writeDir(destinationDirectory) end
 				writeFile(distPath, readFile(path))
 			elseif isDir(path) then
 				find_and_copy_rbxm(path)
@@ -55,10 +51,11 @@ end
 
 local function serve_rojo()
 	local function create_build_project()
+		local path = "build.project.json"
 		local defaultContent = readFile(PROJECT_CONFIG)
 		local modifiedContent = defaultContent:gsub(SRC, DIST)
-		local buildProject = writeFile("build.project.json", modifiedContent)
-		return buildProject
+		writeFile(path, modifiedContent)
+		return path
 	end
 
 	local buildProject = create_build_project()
