@@ -5,7 +5,7 @@ local constants = {}
 constants.EXEC_OPTIONS = { shell = true, stdio = "default" } :: process.ExecOptions
 constants.SOURCEMAP = "sourcemap.json"
 constants.PROJECT_CONFIG = "default.project.json"
-constants.RBXL = "dev.rbxl"
+constants.GAME = "game.rbxl"
 constants.SRC = "src"
 
 return constants

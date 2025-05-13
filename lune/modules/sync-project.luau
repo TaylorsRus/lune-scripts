@@ -13,12 +13,13 @@ local isFile, readFile, writeFile = fs.isFile, fs.readFile, fs.writeFile
 local PROJECT_CONFIG = constants.PROJECT_CONFIG
 local EXEC_OPTIONS = constants.EXEC_OPTIONS
 local SRC = constants.SRC
+local GAME = constants.GAME
 
 local SYNC_INTERVAL = 0.5
 local DIST = "dist"
 
 local function get_modified_at()
-	local metadata = fs.metadata("dev.rbxl")
+	local metadata = fs.metadata(GAME)
 	return metadata.modifiedAt
 end
 
@@ -49,7 +50,7 @@ local function copy_rbxm_files_to_dist()
 end
 
 local function syncback_rojo()
-	execute({ "rojo", "syncback", "--input", "dev.rbxl", "--non-interactive", PROJECT_CONFIG }, EXEC_OPTIONS)
+	execute({ "rojo", "syncback", "--input", GAME, "--non-interactive", PROJECT_CONFIG }, EXEC_OPTIONS)
 end
 
 local function serve_rojo()
