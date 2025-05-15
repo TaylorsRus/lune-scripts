@@ -4,19 +4,24 @@ local task = require("@lune/task")
 
 local clean_metadata = require("./clean-metadata")
 local constants = require("../constants")
+local exception_list = require("../constants/exception-list")
 local execute = require("./execute")
 local snapshot = require("./snapshot")
 
-local isDir, readDir, writeDir = fs.isDir, fs.readDir, fs.writeDir
+local isDir, readDir, writeDir, removeDir = fs.isDir, fs.readDir, fs.writeDir, fs.removeDir
 local isFile, readFile, writeFile = fs.isFile, fs.readFile, fs.writeFile
 
-local PROJECT_CONFIG = constants.PROJECT_CONFIG
+local PROJECT = constants.PROJECT
 local EXEC_OPTIONS = constants.EXEC_OPTIONS
 local SRC = constants.SRC
 local GAME = constants.GAME
 
 local SYNC_INTERVAL = 0.5
 local DIST = "dist"
+
+local function should_compile_dist_directory()
+	return if table.find(exception_list, "--no-dist") == nil then true else false
+end
 
 local function get_modified_at()
 	local metadata = fs.metadata(GAME)
@@ -46,19 +51,20 @@ local function copy_rbxm_files_to_dist()
 end
 
 local function syncback_rojo()
-	execute({ "rojo", "syncback", "--input", GAME, "--non-interactive", PROJECT_CONFIG }, EXEC_OPTIONS)
+	execute({ "rojo", "syncback", "--input", GAME, "--non-interactive", PROJECT }, EXEC_OPTIONS)
 end
 
 local function serve_rojo()
 	local function create_build_project()
 		local path = "build.project.json"
-		local defaultContent = readFile(PROJECT_CONFIG)
+		local defaultContent = readFile(PROJECT)
 		local modifiedContent = defaultContent:gsub(SRC, DIST)
 		writeFile(path, modifiedContent)
 		return path
 	end
 
-	local buildProject = create_build_project()
+	local buildProject = if should_compile_dist_directory() then create_build_project() else PROJECT
+	print(buildProject)
 	execute({ "rojo", "serve", buildProject }, EXEC_OPTIONS)
 end
 
@@ -68,7 +74,12 @@ local function compile_dist()
 end
 
 local function watch_rbxl()
-	compile_dist()
+	local shouldCompileDistDirectory = should_compile_dist_directory()
+	if shouldCompileDistDirectory then
+		compile_dist()
+	elseif isDir(DIST) then
+		removeDir(DIST)
+	end
 	task.defer(serve_rojo)
 
 	local lastSave = datetime.now()
@@ -82,6 +93,7 @@ local function watch_rbxl()
 			clean_metadata(SRC)
 		end
 
+		if not shouldCompileDistDirectory then continue end
 		local sourceSnapshot = snapshot.capture(constants.SRC)
 		if snapshot.has_changed(lastSourceSnapshot, sourceSnapshot) then
 			compile_dist()
