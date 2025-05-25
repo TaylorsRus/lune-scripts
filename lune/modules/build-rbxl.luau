@@ -1,10 +1,8 @@
 local constants = require("../constants")
 local execute = require("../modules/execute")
-local generate_sourcemap = require("./generate-sourcemap")
 
-local function build_rbxl()
-	execute({ "rojo", "build", "--output", constants.GAME }, constants.EXEC_OPTIONS)
-	generate_sourcemap()
+local function build_rbxl(watch: boolean?)
+	execute({ "rojo", "build", "--output", constants.GAME, if watch then "--watch" else "" }, constants.EXEC_OPTIONS)
 end
 
 return build_rbxl

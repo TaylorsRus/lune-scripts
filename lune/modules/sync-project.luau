@@ -2,10 +2,12 @@ local datetime = require("@lune/datetime")
 local fs = require("@lune/fs")
 local task = require("@lune/task")
 
+local build_rbxl = require("./build-rbxl")
 local clean_metadata = require("./clean-metadata")
 local constants = require("../constants")
 local exception_list = require("../constants/exception-list")
 local execute = require("./execute")
+local generate_sourcemap = require("./generate-sourcemap")
 local snapshot = require("./snapshot")
 
 local isDir, readDir, writeDir, removeDir = fs.isDir, fs.readDir, fs.writeDir, fs.removeDir
@@ -73,13 +75,19 @@ local function compile_dist()
 	copy_rbxm_files_to_dist()
 end
 
-local function watch_rbxl()
+local function sync_project()
 	local shouldCompileDistDirectory = should_compile_dist_directory()
 	if shouldCompileDistDirectory then
 		compile_dist()
 	elseif isDir(DIST) then
 		removeDir(DIST)
 	end
+	task.defer(function()
+		generate_sourcemap(true)
+	end)
+	task.defer(function()
+		build_rbxl(true)
+	end)
 	task.defer(serve_rojo)
 
 	local lastSave = datetime.now()
@@ -103,4 +111,4 @@ local function watch_rbxl()
 	end
 end
 
-return watch_rbxl
+return sync_project
