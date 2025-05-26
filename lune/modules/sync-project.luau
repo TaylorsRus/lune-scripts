@@ -2,12 +2,12 @@ local datetime = require("@lune/datetime")
 local fs = require("@lune/fs")
 local task = require("@lune/task")
 
-local build_rbxl = require("./build-rbxl")
 local clean_metadata = require("./clean-metadata")
 local constants = require("../constants")
 local exception_list = require("../constants/exception-list")
 local execute = require("./execute")
 local generate_sourcemap = require("./generate-sourcemap")
+local rojo_build = require("./rojo-build")
 local snapshot = require("./snapshot")
 
 local isDir, readDir, writeDir, removeDir = fs.isDir, fs.readDir, fs.writeDir, fs.removeDir
@@ -86,7 +86,7 @@ local function sync_project()
 		generate_sourcemap(true)
 	end)
 	task.defer(function()
-		build_rbxl(true)
+		rojo_build(true)
 	end)
 	task.defer(serve_rojo)
 
