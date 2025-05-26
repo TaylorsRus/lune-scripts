@@ -1,2 +1,2 @@
-local build_rbxl = require("./modules/build-rbxl")
-build_rbxl()
+local rojo_build = require("./modules/rojo-build")
+rojo_build()
