@@ -1,6 +1,7 @@
 local asphalt_sync = require("./modules/asphalt-sync")
 local constants = require("./constants")
 local execute = require("./modules/execute")
+local rojo_build = require("./modules/rojo-build")
 local sync_project = require("./modules/sync-project")
 local update_wally = require("./modules/update-wally")
 
@@ -13,5 +14,6 @@ end
 
 update_wally()
 asphalt_sync("studio")
+rojo_build()
 invoke_rbxl()
 sync_project()
