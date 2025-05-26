@@ -1,6 +1,6 @@
+local asphalt_sync = require("./modules/asphalt-sync")
 local constants = require("./constants")
 local execute = require("./modules/execute")
-local sync_asphalt = require("./modules/sync-asphalt")
 local sync_project = require("./modules/sync-project")
 local update_wally = require("./modules/update-wally")
 
@@ -12,6 +12,6 @@ local function invoke_rbxl()
 end
 
 update_wally()
-sync_asphalt("studio")
+asphalt_sync("studio")
 invoke_rbxl()
 sync_project()
