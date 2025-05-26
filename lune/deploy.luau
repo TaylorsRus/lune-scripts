@@ -7,7 +7,7 @@ local rojo_build = require("./modules/rojo-build")
 type Environment = mantle_deploy.Environment
 
 local args = process.args
-local environment = nil
+local environment: Environment = nil
 for _, arg: Environment in args do
 	if arg == "dev" or arg == "uat" or arg == "prod" then
 		environment = arg
