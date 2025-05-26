@@ -20,3 +20,4 @@ if environment == nil then error("Must pass environment: 'dev' | 'uat' | 'prod'"
 asphalt_sync("cloud")
 rojo_build()
 mantle_deploy(environment)
+asphalt_sync("studio")
