@@ -1,2 +1,2 @@
-local update_wally = require("./modules/update-wally")
-update_wally()
+local update_packages = require("./modules/update-packages")
+update_packages()
