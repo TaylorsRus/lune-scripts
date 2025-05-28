@@ -1,1 +1,1 @@
-print("Setting up lunar")
+require("./lune/setup")
