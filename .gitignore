@@ -1,6 +1,5 @@
 *
-
 !.gitignore
 !.luaurc
 !README.md
-!lune
+!lune/**
