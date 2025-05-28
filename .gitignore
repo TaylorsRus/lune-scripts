@@ -1,16 +1,22 @@
-#Too volatile
-sourcemap.json
-
-#Local config
 settings.json
 .env
 
-#Artifacts
-src/Assets/_asphalt.luau
-.asphalt-debug
-build.project.json
-/dist
-/Packages
-/ServerPackages
-*.lock
+src
+dist
+
 *.rbxl
+*.rbxl.lock
+*.project.json
+sourcemap.json
+
+wally.toml
+Packages
+ServerPackages
+
+asphalt.toml
+asphalt.lock.toml
+.asphalt-debug
+
+rokit.toml
+
+stylua.toml
