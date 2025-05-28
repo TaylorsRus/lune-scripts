@@ -9,7 +9,7 @@ local EXEC_OPTIONS = config.EXEC_OPTIONS
 local GAME = config.GAME
 
 local function invoke_rbxl()
-	execute({ "Invoke-Item", GAME }, EXEC_OPTIONS)
+	execute(`Invoke-Item {GAME}`, EXEC_OPTIONS)
 end
 
 update_packages()

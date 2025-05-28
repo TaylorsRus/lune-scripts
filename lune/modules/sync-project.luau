@@ -57,7 +57,7 @@ local function copy_rbxm_files_to_dist()
 end
 
 local function syncback_rojo()
-	execute({ "rojo", "syncback", "--input", GAME, "--non-interactive", PROJECT }, EXEC_OPTIONS)
+	execute(`rojo syncback --input {GAME} --non-interactive {PROJECT}`, EXEC_OPTIONS)
 end
 
 local function serve_rojo()
@@ -71,11 +71,11 @@ local function serve_rojo()
 
 	local buildProject = if should_compile_dist_directory() then create_build_project() else PROJECT
 	print(buildProject)
-	execute({ "rojo", "serve", buildProject }, EXEC_OPTIONS)
+	execute(`rojo serve {buildProject}`, EXEC_OPTIONS)
 end
 
 local function compile_dist()
-	execute({ "darklua", "process", SRC, DIST }, EXEC_OPTIONS)
+	execute(`darklua process {SRC} {DIST}`, EXEC_OPTIONS)
 	copy_rbxm_files_to_dist()
 end
 

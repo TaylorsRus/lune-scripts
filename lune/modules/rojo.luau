@@ -10,15 +10,15 @@ local rojo = {}
 function rojo.build(data: { watch: boolean? }?)
 	local watch = if data and data.watch then data.watch else false
 
-	execute({ "rojo", "build", "--output", GAME, if watch then "--watch" else "" }, EXEC_OPTIONS)
+	execute(`rojo build --output {GAME} {if watch then "--watch" else ""}`, EXEC_OPTIONS)
 end
 
 function rojo.serve()
-	execute({ "rojo", "serve", PROJECT }, EXEC_OPTIONS)
+	execute(`rojo serve {PROJECT}`, EXEC_OPTIONS)
 end
 
 function rojo.syncback()
-	execute({ "rojo", "syncback", "--input", GAME, "--non-interactive", PROJECT }, EXEC_OPTIONS)
+	execute(`rojo syncback --input {GAME} --non-interactive {PROJECT}`, EXEC_OPTIONS)
 end
 
 return rojo
