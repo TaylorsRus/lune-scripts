@@ -1,17 +1,40 @@
 local fs = require("@lune/fs")
+local serde = require("@lune/serde")
 
 local execute = require("./modules/execute")
 
+local ASSOCIATIONS = {
+	rojo = "Upliftgames/rojo@7.5.1-uplift.syncback.rc.21",
+	lune = "lune-org/lune@0.9.3",
+}
+
+local function exhausts(value: never)
+	return error(`{value} not exhausted.`)
+end
+
+--TODO: Check that the user has rokit installed before forcing an install
 execute(
 	"Invoke-RestMethod https://raw.githubusercontent.com/rojo-rbx/rokit/main/scripts/install.ps1 | Invoke-Expression"
 )
-
 if not fs.isFile("rokit.toml") then
 	execute("rokit init")
 end
+local data = serde.decode("toml", fs.readFile("rokit.toml"))
+local tools = data.tools
 
-execute("rokit add lune-org/lune@0.9.3")
-execute("rokit add Upliftgames/rojo@7.5.1-uplift.syncback.rc.21")
+local function add_tool(tool: "rojo" | "lune")
+	if tools and not tools[tool] then
+		local tool = if tool == "rojo"
+			then ASSOCIATIONS.rojo
+			elseif tool == "lune" then ASSOCIATIONS.lune
+			else exhausts(tools)
+
+		execute(`rokit add {tool}`)
+	end
+end
+
+add_tool("lune")
+add_tool("rojo")
 execute("rokit install")
 
 return nil
