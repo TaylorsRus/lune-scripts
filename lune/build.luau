@@ -1,2 +1,2 @@
-local rojo_build = require("./modules/rojo-build")
-rojo_build()
+local build_project = require("./modules/build-project")
+build_project()

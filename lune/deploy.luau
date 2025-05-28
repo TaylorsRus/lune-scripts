@@ -2,7 +2,7 @@ local process = require("@lune/process")
 
 local asphalt_sync = require("./modules/asphalt-sync")
 local mantle_deploy = require("./modules/mantle-deploy")
-local rojo_build = require("./modules/rojo-build")
+local build_project = require("./modules/build-project")
 
 type Environment = mantle_deploy.Environment
 
@@ -15,9 +15,11 @@ for _, arg: Environment in args do
 	end
 end
 
-if environment == nil then error("Must pass environment: 'dev' | 'uat' | 'prod'") end
+if environment == nil then
+	error("Must pass environment: 'dev' | 'uat' | 'prod'")
+end
 
 asphalt_sync("cloud")
-rojo_build()
+build_project()
 mantle_deploy(environment)
 asphalt_sync("studio")

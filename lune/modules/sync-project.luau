@@ -7,7 +7,7 @@ local constants = require("../constants")
 local exception_list = require("../constants/exception-list")
 local execute = require("./execute")
 local generate_sourcemap = require("./generate-sourcemap")
-local rojo_build = require("./rojo-build")
+local build_project = require("./build-project")
 local snapshot = require("./snapshot")
 
 local isDir, readDir, writeDir, removeDir = fs.isDir, fs.readDir, fs.writeDir, fs.removeDir
@@ -31,7 +31,9 @@ local function get_modified_at()
 end
 
 local function copy_rbxm_files_to_dist()
-	if not isDir(DIST) then writeDir(DIST) end
+	if not isDir(DIST) then
+		writeDir(DIST)
+	end
 
 	local function find_and_copy_rbxm(directory: string)
 		for _, item in readDir(directory) do
@@ -42,7 +44,9 @@ local function copy_rbxm_files_to_dist()
 				local distPath = DIST .. "/" .. relativePath
 
 				local destinationDirectory = distPath:match("(.*/)") or ""
-				if destinationDirectory ~= "" and not isDir(destinationDirectory) then writeDir(destinationDirectory) end
+				if destinationDirectory ~= "" and not isDir(destinationDirectory) then
+					writeDir(destinationDirectory)
+				end
 				writeFile(distPath, readFile(path))
 			elseif isDir(path) then
 				find_and_copy_rbxm(path)
@@ -86,7 +90,7 @@ local function sync_project()
 		generate_sourcemap(true)
 	end)
 	task.defer(function()
-		rojo_build(true)
+		build_project(true)
 	end)
 	task.defer(serve_rojo)
 
@@ -101,7 +105,9 @@ local function sync_project()
 			clean_metadata(SRC)
 		end
 
-		if not shouldCompileDistDirectory then continue end
+		if not shouldCompileDistDirectory then
+			continue
+		end
 		local sourceSnapshot = snapshot.capture(constants.SRC)
 		if snapshot.has_changed(lastSourceSnapshot, sourceSnapshot) then
 			compile_dist()

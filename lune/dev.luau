@@ -1,7 +1,7 @@
 local sync_assets = require("./modules/sync-assets")
 local constants = require("./constants")
 local execute = require("./modules/execute")
-local rojo_build = require("./modules/rojo-build")
+local build_project = require("./modules/build-project")
 local sync_project = require("./modules/sync-project")
 local update_packages = require("./modules/update-packages")
 
@@ -14,6 +14,6 @@ end
 
 update_packages()
 sync_assets("studio")
-rojo_build()
+build_project()
 invoke_rbxl()
 sync_project()
