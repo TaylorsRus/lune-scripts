@@ -1,6 +1,6 @@
 local process = require("@lune/process")
 
-local asphalt_sync = require("./modules/asphalt-sync")
+local sync_assets = require("./modules/sync-assets")
 local mantle_deploy = require("./modules/mantle-deploy")
 local build_project = require("./modules/build-project")
 
@@ -19,7 +19,7 @@ if environment == nil then
 	error("Must pass environment: 'dev' | 'uat' | 'prod'")
 end
 
-asphalt_sync("cloud")
+sync_assets("cloud")
 build_project()
 mantle_deploy(environment)
-asphalt_sync("studio")
+sync_assets("studio")
