@@ -3,8 +3,7 @@ local fs = require("@lune/fs")
 local task = require("@lune/task")
 
 local clean_metadata = require("./clean-metadata")
-local constants = require("../constants")
-local exception_list = require("../constants/exception-list")
+local config = require("../config")
 local execute = require("./execute")
 local generate_sourcemap = require("./generate-sourcemap")
 local build_project = require("./build-project")
@@ -13,16 +12,17 @@ local snapshot = require("./snapshot")
 local isDir, readDir, writeDir, removeDir = fs.isDir, fs.readDir, fs.writeDir, fs.removeDir
 local isFile, readFile, writeFile = fs.isFile, fs.readFile, fs.writeFile
 
-local PROJECT = constants.PROJECT
-local EXEC_OPTIONS = constants.EXEC_OPTIONS
-local SRC = constants.SRC
-local GAME = constants.GAME
+local PROJECT = config.PROJECT
+local EXEC_OPTIONS = config.EXEC_OPTIONS
+local SRC = config.SRC
+local GAME = config.GAME
+local EXCEPTION_LIST = config.EXCEPTION_LIST
 
 local SYNC_INTERVAL = 0.5
 local DIST = "dist"
 
 local function should_compile_dist_directory()
-	return if table.find(exception_list, "--no-dist") == nil then true else false
+	return if table.find(EXCEPTION_LIST, "--no-dist") == nil then true else false
 end
 
 local function get_modified_at()
@@ -95,7 +95,7 @@ local function sync_project()
 	task.defer(serve_rojo)
 
 	local lastSave = datetime.now()
-	local lastSourceSnapshot = snapshot.capture(constants.SRC)
+	local lastSourceSnapshot = snapshot.capture(config.SRC)
 	while true do
 		local modifiedAt = get_modified_at()
 		if modifiedAt and modifiedAt.unixTimestamp > lastSave.unixTimestamp then
@@ -108,7 +108,7 @@ local function sync_project()
 		if not shouldCompileDistDirectory then
 			continue
 		end
-		local sourceSnapshot = snapshot.capture(constants.SRC)
+		local sourceSnapshot = snapshot.capture(config.SRC)
 		if snapshot.has_changed(lastSourceSnapshot, sourceSnapshot) then
 			compile_dist()
 			lastSourceSnapshot = sourceSnapshot

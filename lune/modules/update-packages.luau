@@ -1,10 +1,10 @@
-local constants = require("../constants")
+local config = require("../config")
 local execute = require("../modules/execute")
 local generate_sourcemap = require("../modules/generate-sourcemap")
 
-local EXEC_OPTIONS = constants.EXEC_OPTIONS
+local EXEC_OPTIONS = config.EXEC_OPTIONS
 
-local SOURCEMAP = constants.SOURCEMAP
+local SOURCEMAP = config.SOURCEMAP
 
 local function update_packages()
 	execute({ "wally", "install" }, EXEC_OPTIONS)
