@@ -6,10 +6,10 @@ local EXEC_OPTIONS = constants.EXEC_OPTIONS
 
 local SOURCEMAP = constants.SOURCEMAP
 
-local function update_wally()
+local function update_packages()
 	execute({ "wally", "install" }, EXEC_OPTIONS)
 	generate_sourcemap()
 	execute({ "wally-package-types", "--sourcemap", SOURCEMAP, "Packages" }, EXEC_OPTIONS)
 end
 
-return update_wally
+return update_packages
