@@ -17,6 +17,8 @@ asphalt.toml
 asphalt.lock.toml
 .asphalt-debug
 
+.darklua.json
+
 rokit.toml
 
 stylua.toml
