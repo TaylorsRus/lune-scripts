@@ -6,6 +6,7 @@ local execute = require("./modules/execute")
 local TOOL_ASSOCIATIONS = {
 	rojo = "Upliftgames/rojo@7.5.1-uplift.syncback.rc.21",
 	lune = "lune-org/lune@0.9.3",
+	asphalt = "jackTabsCode/asphalt@1.0.0-pre.9",
 }
 
 local function exhausts(value: never)
@@ -22,11 +23,12 @@ end
 local data = serde.decode("toml", fs.readFile("rokit.toml"))
 local tools = data.tools
 
-local function add_tool(tool: "rojo" | "lune")
+local function add_tool(tool: "rojo" | "lune" | "asphalt")
 	if tools and not tools[tool] then
 		local tool = if tool == "rojo"
 			then TOOL_ASSOCIATIONS.rojo
 			elseif tool == "lune" then TOOL_ASSOCIATIONS.lune
+			elseif tool == "asphalt" then TOOL_ASSOCIATIONS.asphalt
 			else exhausts(tool)
 
 		execute(`rokit add {tool}`)
@@ -35,6 +37,7 @@ end
 
 add_tool("lune")
 add_tool("rojo")
+add_tool("asphalt")
 execute("rokit install")
 
 execute("")
