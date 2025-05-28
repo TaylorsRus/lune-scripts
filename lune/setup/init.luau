@@ -1,7 +1,7 @@
 local fs = require("@lune/fs")
 local serde = require("@lune/serde")
 
-local execute = require("./modules/execute")
+local execute = require("../modules/execute") :: any --https://github.com/JohnnyMorganz/luau-lsp/issues/1081
 
 local TOOL_ASSOCIATIONS = {
 	rojo = "Upliftgames/rojo@7.5.1-uplift.syncback.rc.21",
