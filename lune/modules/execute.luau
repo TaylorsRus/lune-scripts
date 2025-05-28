@@ -1,4 +1,5 @@
 local process = require("@lune/process")
+local config = require("../config")
 
 type ExecOptions = process.ExecOptions
 
@@ -14,7 +15,7 @@ local function execute(command: string, options: ExecOptions?)
 		table.insert(args, parts[i])
 	end
 
-	local options: ExecOptions = options and table.clone(options) or {}
+	local options: ExecOptions = if options then table.clone(options) else config.EXEC_OPTIONS
 	options.shell = if options.shell == nil or options.shell == true then true else nil
 
 	local result = table.clone(process.exec(bin, args, options))
