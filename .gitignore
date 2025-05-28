@@ -10,6 +10,7 @@ dist
 sourcemap.json
 
 wally.toml
+wally.lock
 Packages
 ServerPackages
 
