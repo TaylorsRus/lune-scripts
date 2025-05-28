@@ -3,7 +3,7 @@ local serde = require("@lune/serde")
 
 local execute = require("./modules/execute")
 
-local ASSOCIATIONS = {
+local TOOL_ASSOCIATIONS = {
 	rojo = "Upliftgames/rojo@7.5.1-uplift.syncback.rc.21",
 	lune = "lune-org/lune@0.9.3",
 }
@@ -25,9 +25,9 @@ local tools = data.tools
 local function add_tool(tool: "rojo" | "lune")
 	if tools and not tools[tool] then
 		local tool = if tool == "rojo"
-			then ASSOCIATIONS.rojo
-			elseif tool == "lune" then ASSOCIATIONS.lune
-			else exhausts(tools)
+			then TOOL_ASSOCIATIONS.rojo
+			elseif tool == "lune" then TOOL_ASSOCIATIONS.lune
+			else exhausts(tool)
 
 		execute(`rokit add {tool}`)
 	end
