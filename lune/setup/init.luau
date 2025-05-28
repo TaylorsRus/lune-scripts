@@ -12,10 +12,10 @@ local function exhausts(value: never)
 	return error(`{value} not exhausted.`)
 end
 
---TODO: Check that the user has rokit installed before forcing an install
 execute(
 	"Invoke-RestMethod https://raw.githubusercontent.com/rojo-rbx/rokit/main/scripts/install.ps1 | Invoke-Expression"
 )
+
 if not fs.isFile("rokit.toml") then
 	execute("rokit init")
 end
@@ -36,5 +36,7 @@ end
 add_tool("lune")
 add_tool("rojo")
 execute("rokit install")
+
+execute("")
 
 return nil
