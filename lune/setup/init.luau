@@ -2,6 +2,7 @@ local fs = require("@lune/fs")
 local serde = require("@lune/serde")
 
 local execute = require("../modules/execute") :: any --https://github.com/JohnnyMorganz/luau-lsp/issues/1081
+local asphalt = require("../modules/asphalt") :: any --https://github.com/JohnnyMorganz/luau-lsp/issues/1081
 
 local TOOL_ASSOCIATIONS = {
 	rojo = "Upliftgames/rojo@7.5.1-uplift.syncback.rc.21",
@@ -13,9 +14,7 @@ local function exhausts(value: never)
 	return error(`{value} not exhausted.`)
 end
 
-execute(
-	"Invoke-RestMethod https://raw.githubusercontent.com/rojo-rbx/rokit/main/scripts/install.ps1 | Invoke-Expression"
-)
+execute("Invoke-RestMethod https://raw.githubusercontent.com/rojo-rbx/rokit/main/scripts/install.ps1 | Invoke-Expression")
 
 if not fs.isFile("rokit.toml") then
 	execute("rokit init")
@@ -40,6 +39,6 @@ add_tool("rojo")
 add_tool("asphalt")
 execute("rokit install")
 
-execute("")
+asphalt.init()
 
 return nil
